@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TracNghiemOnline.Models.Lophoc>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 class="text-info">Danh sách khối lớp</h4>
+
+<p>
+    <a asp-action="Create" class="btn btn-success" >Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên khối/lớp 
+            </th>
+            <th>
+                Mô tả
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Tenlop)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mota)
+                </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Idlop">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Idlop">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Idlop">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
