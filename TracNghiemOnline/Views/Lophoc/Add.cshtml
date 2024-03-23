@@ -1,9 +1,8 @@
 ﻿@model TracNghiemOnline.Models.Lophoc
 
-<h1>Chỉnh sửa lớp học</h1>
+<h1>Thêm lớp học mới</h1>
 
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Idlop" />
+<form asp-action="Add">
     <div class="form-group">
         <label asp-for="Tenlop" class="control-label"></label>
         <input asp-for="Tenlop" class="form-control" />
@@ -14,5 +13,5 @@
         <input asp-for="Mota" class="form-control" />
         <span asp-validation-for="Mota" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
 </form>

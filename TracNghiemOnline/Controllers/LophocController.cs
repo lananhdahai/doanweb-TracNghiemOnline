@@ -1,78 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using TracNghiemOnline.Models;
+using TracNghiemOnline.Repository;
 
 namespace TracNghiemOnline.Controllers
 {
     public class LophocController : Controller
     {
-        private readonly TracNghiemOnlineContext _context;
 
-        public LophocController(TracNghiemOnlineContext context)
+        private readonly ILophocRepository _lophocRepository;
+
+        public LophocController(ILophocRepository lophocRepository)
         {
-            _context = context;
+            _lophocRepository = lophocRepository;
         }
 
-        // GET: Lophoc
+        // Hiển thị danh sách lớp học
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Lophocs.ToListAsync());
+            var lophocs = await _lophocRepository.GetAllAsync();
+            return View(lophocs);
         }
 
-        // GET: Lophoc/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lophoc = await _context.Lophocs
-                .FirstOrDefaultAsync(m => m.Idlop == id);
-            if (lophoc == null)
-            {
-                return NotFound();
-            }
-
-            return View(lophoc);
-        }
-
-        // GET: Lophoc/Create
-        public IActionResult Create()
+        // Hiển thị form thêm lớp học mới
+        public IActionResult Add()
         {
             return View();
         }
 
-        // POST: Lophoc/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Xử lý thêm lớp học mới
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idlop,Mota,Tenlop")] Lophoc lophoc)
+        public async Task<IActionResult> Add(Lophoc lophoc)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(lophoc);
-                await _context.SaveChangesAsync();
+                await _lophocRepository.AddAsync(lophoc);
                 return RedirectToAction(nameof(Index));
             }
+            // Nếu ModelState không hợp lệ, hiển thị form với dữ liệu đã nhập
             return View(lophoc);
         }
 
-        // GET: Lophoc/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // Hiển thị thông tin chi tiết lớp học
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lophoc = await _context.Lophocs.FindAsync(id);
+            var lophoc = await _lophocRepository.GetByIdAsync(id);
             if (lophoc == null)
             {
                 return NotFound();
@@ -80,77 +51,51 @@ namespace TracNghiemOnline.Controllers
             return View(lophoc);
         }
 
-        // POST: Lophoc/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Hiển thị form cập nhật lớp học
+        public async Task<IActionResult> Edit(int id)
+        {
+            var lophoc = await _lophocRepository.GetByIdAsync(id);
+            if (lophoc == null)
+            {
+                return NotFound();
+            }
+            return View(lophoc);
+        }
+
+        // Xử lý cập nhật lớp học
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idlop,Mota,Tenlop")] Lophoc lophoc)
+        public async Task<IActionResult> Edit(int id, Lophoc lophoc)
         {
             if (id != lophoc.Idlop)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(lophoc);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LophocExists(lophoc.Idlop))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _lophocRepository.UpdateAsync(lophoc);
                 return RedirectToAction(nameof(Index));
             }
             return View(lophoc);
         }
 
-        // GET: Lophoc/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // Hiển thị form xác nhận xóa lớp học
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lophoc = await _context.Lophocs
-                .FirstOrDefaultAsync(m => m.Idlop == id);
+            var lophoc = await _lophocRepository.GetByIdAsync(id);
             if (lophoc == null)
             {
                 return NotFound();
             }
-
             return View(lophoc);
         }
 
-        // POST: Lophoc/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        // Xử lý xóa lớp học
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirm(int id)
         {
-            var lophoc = await _context.Lophocs.FindAsync(id);
-            if (lophoc != null)
-            {
-                _context.Lophocs.Remove(lophoc);
-            }
-
-            await _context.SaveChangesAsync();
+            await _lophocRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LophocExists(int id)
-        {
-            return _context.Lophocs.Any(e => e.Idlop == id);
-        }
     }
 }

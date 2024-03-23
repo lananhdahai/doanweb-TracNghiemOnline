@@ -1,44 +1,33 @@
 ﻿@model IEnumerable<TracNghiemOnline.Models.Lophoc>
 
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h4 class="text-info">Danh sách khối lớp</h4>
+<h1>Danh sách lớp học</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-success" >Create New</a>
+    <a asp-action="Add">Thêm lớp học mới</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Tên khối/lớp 
-            </th>
-            <th>
-                Mô tả
-            </th>
-            
+            <th>ID</th>
+            <th>Tên lớp</th>
+            <th>Mô tả</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Tenlop)
-            </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Idlop</td>
+                <td>@item.Tenlop</td>
+                <td>@item.Mota</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Mota)
+                    <a asp-action="Edit" asp-route-id="@item.Idlop">Chỉnh sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.Idlop">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Idlop">Xóa</a>
                 </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Idlop">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Idlop">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Idlop">Delete</a>
-            </td>
-        </tr>
-}
+            </tr>
+        }
     </tbody>
 </table>

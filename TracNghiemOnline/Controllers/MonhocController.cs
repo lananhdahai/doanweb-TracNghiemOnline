@@ -1,163 +1,108 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using TracNghiemOnline.Models;
+using TracNghiemOnline.Repository;
 
 namespace TracNghiemOnline.Controllers
 {
     public class MonhocController : Controller
     {
-        private readonly TracNghiemOnlineContext _context;
+        private readonly IMonhocRepository _monhocRepository;
+        private readonly ILophocRepository _lophocRepository;
 
-        public MonhocController(TracNghiemOnlineContext context)
+        public MonhocController(IMonhocRepository monhocRepository, ILophocRepository lophocRepository)
         {
-            _context = context;
+            _monhocRepository = monhocRepository;
+            _lophocRepository = lophocRepository;
         }
 
-        // GET: Monhoc
+        // Hiển thị danh sách môn học
         public async Task<IActionResult> Index()
         {
-            var tracNghiemOnlineContext = _context.Monhocs.Include(m => m.IdlopNavigation);
-            return View(await tracNghiemOnlineContext.ToListAsync());
+            var monhocs = await _monhocRepository.GetAllAsync();
+            return View(monhocs);
         }
 
-        // GET: Monhoc/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // Hiển thị form thêm môn học mới
+        public async Task<IActionResult> Add()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var monhoc = await _context.Monhocs
-                .Include(m => m.IdlopNavigation)
-                .FirstOrDefaultAsync(m => m.Idmon == id);
-            if (monhoc == null)
-            {
-                return NotFound();
-            }
-
-            return View(monhoc);
-        }
-
-        // GET: Monhoc/Create
-        public IActionResult Create()
-        {
-            ViewData["Idlop"] = new SelectList(_context.Lophocs, "Idlop", "Idlop");
+            var lophocs = await _lophocRepository.GetAllAsync();
+            ViewBag.Lophocs = new SelectList(lophocs, "Idlop", "Tenlop");
             return View();
         }
 
-        // POST: Monhoc/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Xử lý thêm môn học mới
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idmon,Tenmon,Mota,Idlop")] Monhoc monhoc)
+        public async Task<IActionResult> Add(Monhoc monhoc)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(monhoc);
-                await _context.SaveChangesAsync();
+                await _monhocRepository.AddAsync(monhoc);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Idlop"] = new SelectList(_context.Lophocs, "Idlop", "Idlop", monhoc.Idlop);
+            // Nếu ModelState không hợp lệ, hiển thị form với dữ liệu đã nhập
+            var lophocs = await _lophocRepository.GetAllAsync();
+            ViewBag.Lophocs = new SelectList(lophocs, "Idlop", "Tenlop");
             return View(monhoc);
         }
 
-        // GET: Monhoc/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // Hiển thị thông tin chi tiết môn học
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var monhoc = await _context.Monhocs.FindAsync(id);
+            var monhoc = await _monhocRepository.GetByIdAsync(id);
             if (monhoc == null)
             {
                 return NotFound();
             }
-            ViewData["Idlop"] = new SelectList(_context.Lophocs, "Idlop", "Idlop", monhoc.Idlop);
             return View(monhoc);
         }
 
-        // POST: Monhoc/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Hiển thị form cập nhật môn học
+        public async Task<IActionResult> Edit(int id)
+        {
+            var monhoc = await _monhocRepository.GetByIdAsync(id);
+            if (monhoc == null)
+            {
+                return NotFound();
+            }
+            var lophocs = await _lophocRepository.GetAllAsync();
+            ViewBag.Lophocs = new SelectList(lophocs, "Idlop", "Tenlop", monhoc.Idlop);
+            return View(monhoc);
+        }
+
+        // Xử lý cập nhật môn học
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idmon,Tenmon,Mota,Idlop")] Monhoc monhoc)
+        public async Task<IActionResult> Edit(int id, Monhoc monhoc)
         {
             if (id != monhoc.Idmon)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(monhoc);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MonhocExists(monhoc.Idmon))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _monhocRepository.UpdateAsync(monhoc);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Idlop"] = new SelectList(_context.Lophocs, "Idlop", "Idlop", monhoc.Idlop);
             return View(monhoc);
         }
 
-        // GET: Monhoc/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // Hiển thị form xác nhận xóa môn học
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var monhoc = await _context.Monhocs
-                .Include(m => m.IdlopNavigation)
-                .FirstOrDefaultAsync(m => m.Idmon == id);
+            var monhoc = await _monhocRepository.GetByIdAsync(id);
             if (monhoc == null)
             {
                 return NotFound();
             }
-
             return View(monhoc);
         }
 
-        // POST: Monhoc/Delete/5
+        // Xử lý xóa môn học
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var monhoc = await _context.Monhocs.FindAsync(id);
-            if (monhoc != null)
-            {
-                _context.Monhocs.Remove(monhoc);
-            }
-
-            await _context.SaveChangesAsync();
+            await _monhocRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool MonhocExists(int id)
-        {
-            return _context.Monhocs.Any(e => e.Idmon == id);
         }
     }
 }

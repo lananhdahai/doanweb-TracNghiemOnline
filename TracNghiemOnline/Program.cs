@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TracNghiemOnline.Models;
+using TracNghiemOnline.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ builder.Services.AddControllersWithViews();
 var connectionString =
 builder.Configuration.GetConnectionString("WebsiteBanHangConnection");
 builder.Services.AddDbContext<TracNghiemOnlineContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<ILophocRepository, EFLophocRepository>();
+builder.Services.AddScoped<IMonhocRepository, EFMonhocRepository>();
 
 var app = builder.Build();
 
