@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TracNghiemOnline.Models;
+using TracNghiemOnline.Repository;
 
-namespace TracNghiemOnline.Repository
+namespace TracNghiemOnline.EFReponsitory
 {
     public class EFLophocRepository : ILophocRepository
     {
