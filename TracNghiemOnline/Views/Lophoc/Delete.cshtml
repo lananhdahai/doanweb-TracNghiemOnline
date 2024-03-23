@@ -1,0 +1,15 @@
+﻿@model TracNghiemOnline.Models.Lophoc
+
+<h1>Xác nhận xóa lớp học</h1>
+
+<h3>Bạn có chắc chắn muốn xóa lớp học này không?</h3>
+<div>
+    <h4>ID: @Model.Idlop</h4>
+    <h4>Tên lớp: @Model.Tenlop</h4>
+    <h4>Mô tả: @Model.Mota</h4>
+</div>
+<form asp-action="DeleteConfirm" asp-route-id="@Model.Idlop" method="post">
+    <!-- Form content -->
+    <button type="submit">Xác nhận xóa</button>
+</form>
+

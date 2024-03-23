@@ -1,0 +1,33 @@
+﻿@model IEnumerable<TracNghiemOnline.Models.Lophoc>
+
+<h1>Danh sách lớp học</h1>
+
+<p>
+    <a asp-action="Add">Thêm lớp học mới</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên lớp</th>
+            <th>Mô tả</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Idlop</td>
+                <td>@item.Tenlop</td>
+                <td>@item.Mota</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Idlop">Chỉnh sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.Idlop">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Idlop">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

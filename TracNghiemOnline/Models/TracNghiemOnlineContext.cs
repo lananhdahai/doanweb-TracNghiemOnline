@@ -179,10 +179,10 @@ public partial class TracNghiemOnlineContext : DbContext
             entity.Property(e => e.Idmon).HasColumnName("IDMON");
             entity.Property(e => e.Idlop).HasColumnName("IDLOP");
             entity.Property(e => e.Mota)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .HasColumnName("MOTA");
             entity.Property(e => e.Tenmon)
-                .HasMaxLength(50)
+                .HasMaxLength(250)
                 .HasColumnName("TENMON");
 
             entity.HasOne(d => d.IdlopNavigation).WithMany(p => p.Monhocs)
