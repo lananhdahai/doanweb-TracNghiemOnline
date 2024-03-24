@@ -1,0 +1,43 @@
+﻿.header-border-custom {
+    position: absolute;
+    border:"";
+    width: calc(100% + 3px);
+    height: 25px;
+    top: -20px;
+    left: -2px;
+    background-color: rgb(138, 15, 226);
+    border-radius: 20px 20px 0 0;   
+}
+
+.bgColor-main {
+    background-color: #fff;
+}
+
+.custom-radio {
+    font-size: 30px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding-left: 20px;
+    margin-bottom: 12px;
+}
+
+.form-check-input {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.Question-Title {
+    /* ẩn đoạn text bị thừa */
+    overflow: hidden;
+    /* chuyển đoạn text thừa thành dấu ... */
+    text-overflow: ellipsis;
+    /* kiểu hiện thị la hộp */
+    display: -webkit-box;
+    /* xác định hướng của cấc pt */
+    -webkit-box-orient: vertical;
+    /* số dòng */
+    -webkit-line-clamp: 3;
+    padding: 0;
+}
