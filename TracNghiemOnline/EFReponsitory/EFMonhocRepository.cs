@@ -20,8 +20,9 @@ namespace TracNghiemOnline.EFReponsitory
 
         public async Task<Monhoc> GetByIdAsync(int id)
         {
-            return await _context.Monhocs.FindAsync(id);
+            return await _context.Monhocs.Include(b => b.IdlopNavigation).FirstOrDefaultAsync(b => b.Idlop == id);
         }
+
 
         public async Task AddAsync(Monhoc monhoc)
         {
