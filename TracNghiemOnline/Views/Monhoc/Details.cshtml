@@ -1,0 +1,35 @@
+﻿@model TracNghiemOnline.Models.Monhoc
+
+@{
+    ViewData["Title"] = "Chi tiết môn học";
+}
+
+<h2>Chi tiết môn học</h2>
+
+<div>
+    <h4>Thông tin môn học:</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Tenmon)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tenmon)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Mota)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Mota)
+        </dd>
+        <dt class="col-sm-2">
+            Lớp học
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdlopNavigation.Tenlop)
+        </dd>
+    </dl>
+    <div>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</div>

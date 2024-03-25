@@ -1,0 +1,27 @@
+﻿@model TracNghiemOnline.Models.Monhoc
+
+@{
+    ViewData["Title"] = "Chỉnh sửa môn học";
+}
+
+<h2>Chỉnh sửa môn học</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Idmon" />
+    <div class="form-group">
+        <label asp-for="Tenmon"></label>
+        <input asp-for="Tenmon" class="form-control" />
+        <span asp-validation-for="Tenmon" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Mota"></label>
+        <textarea asp-for="Mota" class="form-control"></textarea>
+        <span asp-validation-for="Mota" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Idlop">Lớp học</label>
+        <select asp-for="Idlop" asp-items="@ViewBag.Lophocs" class="form-control"></select>
+        <span asp-validation-for="Idlop" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+</form>

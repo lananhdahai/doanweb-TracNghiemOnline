@@ -1,0 +1,20 @@
+﻿@model TracNghiemOnline.Models.Monhoc
+
+@{
+    ViewData["Title"] = "Xóa môn học";
+}
+
+<h2>Xóa môn học</h2>
+
+<div>
+    <h4>Bạn có chắc chắn muốn xóa môn học này?</h4>
+    <div>
+        <h4>Môn học: @Model.Tenmon</h4>
+        <hr />
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Idmon" />
+            <input type="submit" value="Xác nhận" class="btn btn-danger" />
+            <a asp-action="Index" class="btn btn-secondary">Hủy bỏ</a>
+        </form>
+    </div>
+</div>

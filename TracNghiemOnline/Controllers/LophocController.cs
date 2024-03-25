@@ -18,6 +18,7 @@ namespace TracNghiemOnline.Controllers
         public async Task<IActionResult> Index()
         {
             var lophocs = await _lophocRepository.GetAllAsync();
+            ViewBag.Lophocs = lophocs; // Gán danh sách các lớp học cho ViewBag
             return View(lophocs);
         }
 

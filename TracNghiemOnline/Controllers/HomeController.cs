@@ -1,28 +1,22 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TracNghiemOnline.Models;
 
-namespace TracNghiemOnline.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly TracNghiemOnlineContext _context;
+
+    public HomeController(TracNghiemOnlineContext context)
     {
-        private readonly ILogger<HomeController> _logger;
+        _context = context;
+    }
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+    public async Task<IActionResult> Index()
+    {
+        // Lấy danh sách lớp học và các môn học tương ứng
+        var lops = await _context.Lophocs.Include(l => l.Monhocs).ToListAsync();
+        ViewBag.Lops = lops;
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-       
+        return View();
     }
 }
