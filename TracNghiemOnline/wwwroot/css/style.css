@@ -1,0 +1,64 @@
+﻿.card {
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    transform-origin: bottom;
+    position: relative;
+}
+
+.card-hover:hover {
+    animation-name: card-hover;
+    animation-timing-function: ease;
+}
+
+
+
+
+
+
+@keyframes card-hover {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    padding: 0;
+}
+
+
+.card-box-hover {
+    width: 100%;
+    height: 16%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    display: none;
+}
+
+.card:hover .card-box-hover {
+    display: block;
+}
+
+.card-box-hover div {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+
+
+

@@ -15,5 +15,5 @@ public partial class Monhoc
 
     public virtual ICollection<Cauhoi> Cauhois { get; set; } = new List<Cauhoi>();
 
-    public virtual Lophoc IdlopNavigation { get; set; } = null!;
+    public Lophoc? IdlopNavigation { get; set; }
 }
