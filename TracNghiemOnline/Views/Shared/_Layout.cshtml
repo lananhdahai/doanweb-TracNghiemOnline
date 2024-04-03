@@ -9,29 +9,160 @@
     <link rel="stylesheet" href="~/TracNghiemOnline.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Test.css">
     <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/LayoutUser.css">
+ 
  
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TracNghiemOnline</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+       <nav class="navbar navbar-expand-lg bg-body-secondary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Trang Chủ  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent   ">
+           
+            
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+               <!-- start suject -->
+              <li class="nav-item">
+                <div class="Subject">  
+                    <div class="SubjectLink  SubjectLink--sibar ">
+                        <a class="nav-link active    " aria-current="page" href="#">Môn học</a>
+                    </div>
+                 
+                    <div class="Subject-Detail">
+                        <div class="container ">
+                                <div class="row ">
+                                  <div class="col-md-2 suject-crouse">
+                                    <div class="suject-crouse__details">
+                                        <a href="#">Toán</a>
+                                    </div>
+                                    <div class="suject-crouse__Test">
+                                        <div class="container">
+                                            <div class="row">
+                                               
+                                                
+                                                <div class="col-md-6 col-sm-12  ">
+                                                    <div href="" class="card text-decoration-none  card-hover rounded-4  ">
+                                                        <div class="card-header text-decoration-none  ">
+                                                            
+                                                        </div>
+                                                        <div class="card-body ">
+                                                          <div class="d-flex justify-content-between ">   <p class="card-title ">Toán 12</p> <p>Số câu hỏi :25</p> </div>
+                                                         
+                                                            <p class="card-text ellipsis  ">Đánh giá các thành phần ngon lành ạdgaskjdbasmdvasjhdasvdhjasvdasdádasdasdasdasdsa</p>
+                                                           <h4 class="card-text ">Name tác giả</h4>
+                                                        </div>
+                                                        <div class="card-footer ">
+                                                            <h5  class="card-text text-decoration-line-through ">Giá 1</h5>
+                                                            <h4 class="text-danger fw-bold ">Giá sau khi đã giảm</h4>
+                                                        </div>
+                                    
+                                                       
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                                
+                                             </div>
+                                        </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-2 suject-crouse">
+                                    <div class="suject-crouse__details">
+                                        <a href="#">Toán</a>
+                                    </div>
+                                    <div class="suject-crouse__Test">
+                                        <div class="container">
+                                            <div class="row">
+                                               
+                                                
+                                                <div class="col-md-6 col-sm-12  ">
+                                                    <div href="" class="card text-decoration-none  card-hover rounded-4  ">
+                                                        <div class="card-header text-decoration-none  ">
+                                                            
+                                                        </div>
+                                                        <div class="card-body ">
+                                                          <div class="d-flex justify-content-between ">   <p class="card-title ">Toán 12</p> <p>Số câu hỏi :25</p> </div>
+                                                         
+                                                            <p class="card-text ellipsis  ">Đánh giá các thành phần ngon lành ạdgaskjdbasmdvasjhdasvdhjasvdasdádasdasdasdasdsa</p>
+                                                           <h4 class="card-text ">Name tác giả</h4>
+                                                        </div>
+                                                        <div class="card-footer ">
+                                                            <h5  class="card-text text-decoration-line-through ">Giá 1</h5>
+                                                            <h4 class="text-danger fw-bold ">Giá sau khi đã giảm</h4>
+                                                        </div>
+                                    
+                                                       
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                                
+                                             </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                          
+                                </div>
+                        </div>
+                    </div>
                 </div>
+          
+              </li>
+
+              <!-- end subject -->
+
+                 <!-- start suject -->
+                 <li class="nav-item">
+                  <div class="Subject">  
+                      <div class="SubjectLink  SubjectLink--sibar ">
+                          <a class="nav-link active    " aria-current="page" href="#">Giáo viên</a>
+                      </div>
+                   
+                      <div class="Subject-Detail">
+                          <div class="container ">
+                                  <div class="row ">
+                                    <div class="col-md-2 suject-crouse">
+                                      <div class="suject-crouse__details">
+                                          <a href="#">Toán</a>
+                                      </div>
+                                     
+                                    </div>
+  
+                               
+                            
+                                  </div>
+                          </div>
+                      </div>
+                  </div>
+            
+                </li>
+
+                <!-- end teacher -->
+            
+            </ul>
+
+           <div>
+                 
+            <form class="d-flex" role="search" style="margin-right: 20px;">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+           </div>
+
+            <div>
+                        <partial name="_LoginPartial" />
             </div>
-        </nav>
+
+
+
+          </div>
+        </div>
+      </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">

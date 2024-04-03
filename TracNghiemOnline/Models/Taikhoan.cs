@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace TracNghiemOnline.Models;
 
-public partial class Taikhoan
+public  class Taikhoan
 {
-    public int Idtk { get; set; }
+    public int Id { get; set; }
 
     public int Idloaitk { get; set; }
 
@@ -21,9 +21,5 @@ public partial class Taikhoan
 
     public long? Sdt { get; set; }
 
-    public virtual Loaitk IdloaitkNavigation { get; set; } = null!;
 
-    public virtual ICollection<Ketqua> Ketquas { get; set; } = new List<Ketqua>();
-
-    public virtual ICollection<Dethi> Iddethis { get; set; } = new List<Dethi>();
 }

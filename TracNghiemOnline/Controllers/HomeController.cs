@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TracNghiemOnline.IRepository;
 using TracNghiemOnline.Models;
 
 namespace TracNghiemOnline.Controllers
@@ -7,15 +8,25 @@ namespace TracNghiemOnline.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IDeThiRepository _deThiRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController( IDeThiRepository deThiRepository) 
         {
-            _logger = logger;
+            _deThiRepository = deThiRepository;
+           
         }
+    
 
-        public IActionResult Index()
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+         
+        //}
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var dethi = await _deThiRepository.GetDethisAsync();
+
+            return View(dethi);
         }
 
         public IActionResult Privacy()

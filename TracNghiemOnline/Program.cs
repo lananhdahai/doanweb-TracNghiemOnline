@@ -1,5 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
+using TracNghiemOnline.Data;
 using TracNghiemOnline.EFReponsitory;
+using TracNghiemOnline.IRepository;
 using TracNghiemOnline.Models;
 using TracNghiemOnline.Repository;
 
@@ -8,10 +13,30 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 var connectionString =
-builder.Configuration.GetConnectionString("WebsiteBanHangConnection");
-builder.Services.AddDbContext<TracNghiemOnlineContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddScoped<ILophocRepository, EFLophocRepository>();
-builder.Services.AddScoped<IMonhocRepository, EFMonhocRepository>();
+
+//builder.Services.AddDbContext<TracNghiemOnlineContext>(options => options.UseSqlServer(connectionString));
+
+
+builder.Services.AddScoped<ICauhoiRepository, EFCauhoiRepository>();
+builder.Services.AddScoped<IDeThiRepository, EFDeThiReponsitory>();
+
+//builder.Services.AddDefaultIdentity<CustomUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<CustomUser, IdentityRole>(options =>
+{
+
+})
+.AddDefaultUI()
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -26,14 +51,34 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseStaticFiles();
+
+app.MapRazorPages();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
 });
 
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+;
+
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+//});
+
+
+
+
+app.MapRazorPages();
 app.Run();

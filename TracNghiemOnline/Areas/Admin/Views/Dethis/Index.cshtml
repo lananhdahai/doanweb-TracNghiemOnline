@@ -1,0 +1,81 @@
+﻿@model IEnumerable<TracNghiemOnline.Models.Dethi>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewBag.title="Quản lí đề thi";
+}
+
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Noidung)
+            
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lophoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Monhoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SlCau)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gio)
+         
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phut)
+             
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayTao)
+            </th>
+           
+          
+            <th>Chỉnh sửa</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="border border-2 rounded-3">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Noidung)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lophoc.Tenlop)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monhoc.Tenmon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SlCau)
+                </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Gio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phut)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayTao)
+            </td>
+            
+           
+           
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Chi tiết</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

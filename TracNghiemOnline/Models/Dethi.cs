@@ -3,19 +3,38 @@ using System.Collections.Generic;
 
 namespace TracNghiemOnline.Models;
 
-public partial class Dethi
+public  class Dethi
 {
-    public int Iddethi { get; set; }
+    public int Id { get; set; }
 
-    public int? Thoigianthi { get; set; }
+    public int Gio { get; set; }
 
-    public int? Slcau { get; set; }
+    public int Phut { get; set; }
 
-    public DateTime? Ngaythi { get; set; }
+    public int SlCau { get; set; }
 
-    public virtual ICollection<Ketqua> Ketquas { get; set; } = new List<Ketqua>();
+    public string ? ImageUrl { get; set; }    
 
-    public virtual ICollection<Cauhoi> Idcauhois { get; set; } = new List<Cauhoi>();
+    public DateTime  NgayTao { get; set; }
 
-    public virtual ICollection<Taikhoan> Idtks { get; set; } = new List<Taikhoan>();
+    public string Noidung { get; set; } 
+
+    //public string Image { get; set; } 
+    
+    
+
+
+
+    public int LophocId { get; set; }   
+    public Lophoc ? Lophoc { get; set; }
+
+    public int MonhocId { get; set; }
+    public Monhoc? Monhoc { get; set; }
+
+
+
+
+
+
+
 }

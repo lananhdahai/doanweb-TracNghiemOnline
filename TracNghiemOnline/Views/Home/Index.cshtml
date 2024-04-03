@@ -1,4 +1,4 @@
-﻿
+﻿@model List<TracNghiemOnline.Models.Dethi>
 <div class="container mt-3">
     <div id="carouselExample" class="carousel slide bg-black">
         <div class="carousel-inner ">
@@ -64,36 +64,57 @@
                 </a>
             </div>
         </div>
-
+         @{
+            int i = 0;
+        }
+        @while(i<Model.Count)
+        { 
         <div class="row">
+
+            @for (int j = 0; j < 3; j++)
+            {
             <div class="col-md-3 col-sm-12 m-3 ">
-                <div href="" class="card text-decoration-none  card-hover rounded-4  ">
-                    <div class="card-header text-decoration-none  ">
-                        <img src="https://salt.tikicdn.com/cache/750x750/ts/product/30/e5/2c/7eeb7fd6a49e0648be9c9472d78467f1.jpg.webp  " class="card-img-top" style="height: 200px;" alt="">
-                    </div>
-                    <div class="card-body ">
-                        <div class="d-flex justify-content-between ">   <p class="card-title ">Toán 12</p> <p>Số câu hỏi :25</p> </div>
+              
+                    <div href="" class="card text-decoration-none  card-hover rounded-4  ">
+                        <div class="card-header text-decoration-none  ">
+                            <img src="@Model[i].ImageUrl" class="card-img-top" style="height: 200px;" alt="Ảnh rỗng ">
+                        </div>
+                        <div class="card-body ">
+                            <div class="d-flex justify-content-between ">   <p class="card-title ">@Model[i].Monhoc.Tenmon - @Model[i].Lophoc.Tenlop</p> <p>Số câu hỏi :@Model[i].SlCau</p> </div>
 
-                        <p class="card-text ellipsis  ">Đánh giá các thành phần ngon lành ạdgaskjdbasmdvasjhdasvdhjasvdasdádasdasdasdasdsa</p>
-                        <h4 class="card-text ">Name tác giả</h4>
-                    </div>
-                    <div class="card-footer ">
-                        <h5 class="card-text text-decoration-line-through ">Giá 1</h5>
-                        <h4 class="text-danger fw-bold ">Giá sau khi đã giảm</h4>
-                    </div>
-
-                    <div class="card-box-hover rounded-bottom-4 ">
-                        <div class="qqq">
-                            <a class="btn btn-primary" href="">Làm ngay</a>
+                            <p class="card-text ellipsis  ">@Model[i].Noidung</p>
+                            <h4 class="card-text ">Name tác giả</h4>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center ">
+                            <h5 class="card-text text-decoration-line-through text-center ">1500000 Vnd </h5>
+                            <h4 class="text-danger fw-bold text-center ">100000 VND</h4>
                         </div>
 
+                        <div class="card-box-hover rounded-bottom-4 ">
+                            <div class="qqq">
+                                <a class="btn btn-primary" asp-action="Test" asp-route-Id="@Model[i].Id" asp-controller="Test">Làm ngay</a>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+
+                    
+               
+             
             </div>
+                 i++;
+                    @if(i>=Model.Count)
+                    {
+                        break;
+                    }
+                }
+    
+            
 
 
 
         </div>
+    }
     </div>
 
 

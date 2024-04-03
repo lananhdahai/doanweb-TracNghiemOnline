@@ -1,0 +1,88 @@
+﻿.Subject {
+    position: relative;
+}
+
+
+
+.SubjectLink {
+    position: relative;
+}
+
+.SubjectLink--sibar ::before {
+    content: " ";
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    background-color: transparent;
+    height: 30px;
+    width: 500px;
+    z-index: 1;
+}
+
+.Subject:hover::after {
+    content: " ";
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    z-index: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 30px solid rgb(12, 81, 6);
+    /* display: none;  */
+
+    animation: appearBlock;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+}
+
+.Subject-Detail {
+    position: absolute;
+    font-size: 20px;
+    width: 500px;
+    height: 300px;
+    top: 60px;
+    border: 2px solid;
+    border-radius: 10px;
+    background-color: aqua;
+    font-weight: bold;
+    z-index: 2;
+    display: none;
+    animation: appearBlock;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+}
+
+.Subject:hover .Subject-Detail {
+    display: block;
+}
+
+.suject-crouse {
+    position: relative;
+}
+
+.suject-crouse__Test {
+    position: absolute;
+    background-color: red;
+    /* left: calc(100%*6.03); */
+    height: 375px;
+    border-radius: 20px;
+    display: none;
+}
+
+@keyframes appearBlock {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100%;
+    }
+}
+
+/* 
+.suject-crouse:hover .suject-crouse__Test{
+     display: bnock; 
+    
+} 
+*/
+

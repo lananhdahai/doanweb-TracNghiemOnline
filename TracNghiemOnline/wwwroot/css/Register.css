@@ -1,0 +1,36 @@
+﻿.container {
+    background-image: url(https://i.pinimg.com/564x/24/5d/e9/245de9f62d99fa8c44846aefcd2a48bb.jpg);
+}
+
+.register {
+    background-color: #8B4202;
+}
+
+.form-floating {
+    position: relative;
+}
+
+
+small {
+    position: absolute;
+    height: 5px;
+    /* width: 100%;  */
+    background-color: red !important;
+    display: none;
+}
+
+.form-floating :focus ~ small {
+    width: 100%;
+    animation: Changecolor 2s ease;
+    display: block;
+}
+
+@keyframes Changecolor {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}

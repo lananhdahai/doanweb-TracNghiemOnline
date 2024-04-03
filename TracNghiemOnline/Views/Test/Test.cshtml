@@ -1,128 +1,95 @@
-﻿   <!-- Header -->
+﻿@model List<TracNghiemOnline.Models.Cauhoi>
 
 
-<div class="container my-5 border border-2 border-info rounded-bottom-4  position-relative bgColor-main  ">
-    <span class="header-border-custom"></span>
-    <div class=" ">
-        <div>
-            <h1 class="my-3">Trắc nghiệm toán cao cấp</h1>
-            <h5 class="my-3 ">Mô tả của giáo viên</h5>
+    <div class="container my-5 border border-2 border-info rounded-bottom-4  position-relative bgColor-main  ">
+        <span class="header-border-custom"></span>
+        <div class=" ">
+            <div>
+                <h1 class="my-3">@ViewBag.DeThi.Monhoc.Tenmon - @ViewBag.DeThi.Lophoc.Tenlop</h1>
+                <h5 class="my-3 ">@ViewBag.DeThi.Noidung</h5>
+            </div>
+            <h1>Điểm số: <Strong class="float-end">0/@ViewBag.DeThi.SlCau</Strong></h1>
         </div>
-        <h1>Điểm số: <Strong class="float-end">0/100</Strong></h1>
+
     </div>
 
-</div>
-
-<!--end Header -->
-<!-- Body -->
-<form action="" enctype="multipart/form-data" id="form">
-    <div class="container bgColor-main border rounded-4 ">
+    <!--end Header -->
+    <!-- Body -->
+ 
+        <div class="container bgColor-main border rounded-4 ">
 
 
-        <div class="d-flex justify-content-between">
-            <h1>
-                Số câu hỏi : <Strong>0/20</Strong>
-            </h1>
-            <div class="d-flex">
-                <h1 id="minute">20</h1>
-                <h1>:</h1>
-                <h1 id="second">00</h1>
+            <div class="d-flex justify-content-between">
+                <h1>
+                    Số câu hỏi : <Strong>0/</Strong><Strong id="NumberOfTest">@ViewBag.DeThi.SlCau</Strong>
+                </h1>
+                <div class="d-flex">
+                    <h1 id="Hourse">@ViewBag.DeThi.Gio</h1>
+                    <h1>:</h1>
+                    <h1 id="second">@ViewBag.DeThi.Phut</h1>
+                    <h1>:</h1>
+                    <h1 id="minutes">00</h1>
+                </div>
+
             </div>
+
+
+    @{
+        int i = 0;
+        string cau = "Cau";
+    }
+            <!-- Question  -->
+            @foreach (var item in Model)
+            {
+                <span style="display:none;" id="@cau@i">@item.Id</span>
+                <div class="border border-2  my-3 custom-radio rounded-4 ">
+                    <h5 class="mt-2 ">0/10</h5>
+                    <h2 class="Question-Title">@item.Noidung</h2>
+                    <div class="form-check my-2">
+                <input class="form-check-input " type="radio" name=@i id=@i>
+                        <label class="" for=@i>@item.DaA</label>
+                    </div>
+                    <div class="form-check my-2">
+                <input class="form-check-input " type="radio" name=@i id=@i>
+                        <label class="" for=@i>@item.DaB</label>
+                    </div>
+                    <div class="form-check my-2">
+                <input class="form-check-input " type="radio" name=@i id=@i>
+                        <label class="" for=@i>@item.DaC</label>
+                    </div>
+                    <div class="form-check my-2">
+                <input class="form-check-input " type="radio" name=@i id=@i>
+                        <label class="" for=@i>@item.DaD</label>
+                    </div>
+                </div>
+
+                i++;
+            }
+
+
+            <!-- end Question -->
+
+
+
+       
 
         </div>
 
+    <form asp-action="TestCheck" asp-controller="Test" asp-route-Id="@ViewBag.DeThi.Id" method="post" enctype="multipart/form-data" id="form">
 
-
-        <!-- Question  -->
-        <div class="border border-2  my-3 custom-radio rounded-4 ">
-            <h5 class="mt-2 ">0/10</h5>
-            <h2 class="Question-Title">Câu 1:Hãy cho biết việt nam ở đâu ?   </h2>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-
-        </div>
-
-        <!-- end Question -->
-        <!-- Question  -->
-        <div class="border border-2  my-3 custom-radio rounded-4 ">
-            <h5 class="mt-2 ">0/10</h5>
-            <h2 class="Question-Title">Câu 1:Hãy cho biết việt nam ở đâu ?   </h2>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-
-        </div>
-
-        <!-- end Question -->
-        <!-- Question  -->
-        <div class="border border-2  my-3 custom-radio rounded-4 ">
-            <h5 class="mt-2 ">0/10</h5>
-            <h2 class="Question-Title">Câu 1:Hãy cho biết việt nam ở đâu ?   </h2>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-            <div class="form-check my-2">
-                <input class="form-check-input " type="radio" name="Answer" id="Answer1 ">
-                <label class="" for="Answer1">Đáp án 1</label>
-            </div>
-
-
-
-        </div>
-
-        <!-- end Question -->
-
+        <input hidden="true" value="" name="Data" id="Data"  />
         <div class="container d-flex justify-content-center my-3 ">
             <button onclick="submitForm();" value="Click me!" class="btn btn-outline-danger" id="btnSubmit"><Strong class="fs-2">Hoàn thành</Strong></button>
         </div>
 
+    </form>
+
+    <!--end Body -->
+    <!-- Footer -->
+    <div class="container .bgColor-main mt-1">
+        <h5>Đề trắc nghiệm được phát triển với giáo viên:....Môn : toán lớp 12</h5>
     </div>
 
+    <!--end Footer -->
 
 
-
-</form>
-
-<!--end Body -->
-<!-- Footer -->
-<div class="container .bgColor-main mt-1">
-    <h5>Đề trắc nghiệm được phát triển với giáo viên:....Môn : toán lớp 12</h5>
-</div>
-
-<!--end Footer -->

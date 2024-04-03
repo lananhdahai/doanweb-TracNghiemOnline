@@ -1,0 +1,18 @@
+﻿@model TracNghiemOnline.Models.Dethi
+
+<div class="container my-5 border border-2 border-info rounded-bottom-4  position-relative bgColor-main  ">
+    <span class="header-border-custom"></span>
+    <div class=" ">
+        <div>
+            <h1 class="my-3">@Model.Monhoc.Tenmon - @Model.Lophoc.Tenlop</h1>
+            <h5 class="my-3 ">@Model.Noidung</h5>
+        </div>
+        <h1>Điểm số: <Strong class="float-end">@ViewBag.Grade/ @Model.SlCau</Strong></h1>
+    </div>
+    <div class="my-3">
+        <a class="btn btn-danger" asp-action="" asp-controller="" asp-route-Id="">Xem Chi tiết</a>
+        <a class="btn btn-success" asp-action="" asp-controller="" asp-route-Id="">Quay lại</a>
+    </div>
+
+</div>
+
