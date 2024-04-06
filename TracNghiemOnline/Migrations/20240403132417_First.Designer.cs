@@ -12,8 +12,8 @@ using TracNghiemOnline.Data;
 namespace TracNghiemOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240331080706_updatedethi")]
-    partial class updatedethi
+    [Migration("20240403132417_First")]
+    partial class First
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -181,18 +181,14 @@ namespace TracNghiemOnline.Migrations
                     b.Property<string>("DaD")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DapAnId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DethiId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Idmon")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("KetquaId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Khac")
                         .HasColumnType("nvarchar(max)");
@@ -201,14 +197,11 @@ namespace TracNghiemOnline.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Video")
-                        .HasColumnType("varbinary(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("DethiId");
+                    b.HasIndex("DapAnId");
 
-                    b.HasIndex("KetquaId");
+                    b.HasIndex("DethiId");
 
                     b.ToTable("Cauhois");
                 });
@@ -282,6 +275,23 @@ namespace TracNghiemOnline.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("TracNghiemOnline.Models.DapAn", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DapAns");
+                });
+
             modelBuilder.Entity("TracNghiemOnline.Models.Dethi", b =>
                 {
                     b.Property<int>("Id")
@@ -292,6 +302,9 @@ namespace TracNghiemOnline.Migrations
 
                     b.Property<int>("Gio")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LophocId")
                         .HasColumnType("int");
@@ -319,28 +332,6 @@ namespace TracNghiemOnline.Migrations
                     b.HasIndex("MonhocId");
 
                     b.ToTable("Dethis");
-                });
-
-            modelBuilder.Entity("TracNghiemOnline.Models.Ketqua", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("DapAn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DethiId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DethiId");
-
-                    b.ToTable("Ketquas");
                 });
 
             modelBuilder.Entity("TracNghiemOnline.Models.Loaitk", b =>
@@ -450,21 +441,21 @@ namespace TracNghiemOnline.Migrations
 
             modelBuilder.Entity("TracNghiemOnline.Models.Cauhoi", b =>
                 {
+                    b.HasOne("TracNghiemOnline.Models.DapAn", "DapAns")
+                        .WithMany("cauhois")
+                        .HasForeignKey("DapAnId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TracNghiemOnline.Models.Dethi", "Dethi")
                         .WithMany()
                         .HasForeignKey("DethiId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TracNghiemOnline.Models.Ketqua", "Ketqua")
-                        .WithMany("cauhois")
-                        .HasForeignKey("KetquaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("DapAns");
 
                     b.Navigation("Dethi");
-
-                    b.Navigation("Ketqua");
                 });
 
             modelBuilder.Entity("TracNghiemOnline.Models.Dethi", b =>
@@ -486,19 +477,7 @@ namespace TracNghiemOnline.Migrations
                     b.Navigation("Monhoc");
                 });
 
-            modelBuilder.Entity("TracNghiemOnline.Models.Ketqua", b =>
-                {
-                    b.HasOne("TracNghiemOnline.Models.Dethi", null)
-                        .WithMany("ketquas")
-                        .HasForeignKey("DethiId");
-                });
-
-            modelBuilder.Entity("TracNghiemOnline.Models.Dethi", b =>
-                {
-                    b.Navigation("ketquas");
-                });
-
-            modelBuilder.Entity("TracNghiemOnline.Models.Ketqua", b =>
+            modelBuilder.Entity("TracNghiemOnline.Models.DapAn", b =>
                 {
                     b.Navigation("cauhois");
                 });

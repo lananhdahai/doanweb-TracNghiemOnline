@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TracNghiemOnline.Migrations
 {
     /// <inheritdoc />
-    public partial class initIdentity : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +30,7 @@ namespace TracNghiemOnline.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -48,6 +49,59 @@ namespace TracNghiemOnline.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DapAns",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DapAns", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Loaitks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Loaitk1 = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Loaitks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lophocs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tenlop = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mota = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lophocs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Monhocs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tenmon = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Monhocs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,8 +150,8 @@ namespace TracNghiemOnline.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -141,8 +195,8 @@ namespace TracNghiemOnline.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -152,6 +206,72 @@ namespace TracNghiemOnline.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Dethis",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Gio = table.Column<int>(type: "int", nullable: false),
+                    Phut = table.Column<int>(type: "int", nullable: false),
+                    SlCau = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NgayTao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Noidung = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LophocId = table.Column<int>(type: "int", nullable: false),
+                    MonhocId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dethis", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dethis_Lophocs_LophocId",
+                        column: x => x.LophocId,
+                        principalTable: "Lophocs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Dethis_Monhocs_MonhocId",
+                        column: x => x.MonhocId,
+                        principalTable: "Monhocs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cauhois",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Noidung = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DaA = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DaB = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DaC = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DaD = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Khac = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Da = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DethiId = table.Column<int>(type: "int", nullable: false),
+                    DapAnId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cauhois", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cauhois_DapAns_DapAnId",
+                        column: x => x.DapAnId,
+                        principalTable: "DapAns",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cauhois_Dethis_DethiId",
+                        column: x => x.DethiId,
+                        principalTable: "Dethis",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -194,6 +314,26 @@ namespace TracNghiemOnline.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cauhois_DapAnId",
+                table: "Cauhois",
+                column: "DapAnId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cauhois_DethiId",
+                table: "Cauhois",
+                column: "DethiId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dethis_LophocId",
+                table: "Dethis",
+                column: "LophocId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dethis_MonhocId",
+                table: "Dethis",
+                column: "MonhocId");
         }
 
         /// <inheritdoc />
@@ -215,10 +355,28 @@ namespace TracNghiemOnline.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Cauhois");
+
+            migrationBuilder.DropTable(
+                name: "Loaitks");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "DapAns");
+
+            migrationBuilder.DropTable(
+                name: "Dethis");
+
+            migrationBuilder.DropTable(
+                name: "Lophocs");
+
+            migrationBuilder.DropTable(
+                name: "Monhocs");
         }
     }
 }

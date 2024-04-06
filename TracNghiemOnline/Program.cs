@@ -55,6 +55,13 @@ app.UseStaticFiles();
 
 app.MapRazorPages();
 
+
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -63,11 +70,6 @@ app.UseEndpoints(endpoints =>
     );
 });
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-;
 
 
 //app.UseEndpoints(endpoints =>
